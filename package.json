@@ -1,0 +1,22 @@
+{
+  "name": "com.ideatogame.persistence-system",
+  "version": "0.1.0",
+  "displayName": "Persistence System",
+  "description": "System that handles persistence with slots and runtime data.",
+  "documentationUrl": "https://example.com/",
+  "changelogUrl": "https://example.com/changelog.html",
+  "licensesUrl": "https://example.com/licensing.html",
+  "keywords": [
+    "Save",
+    "Load",
+    "Persistence"
+  ],
+  "author": {
+    "name": "Idea.ToGame",
+    "email": "fhdduraes@gmail.com",
+    "url": "https://github.com/ideatogame"
+  },
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": ""
+  }
+}
