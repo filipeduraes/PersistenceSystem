@@ -25,19 +25,42 @@ namespace IdeaToGame.PersistenceSystem.Strategies
 
         public async Task SaveAsync(int slotIndex, string data)
         {
-            await using StreamWriter file = new(GetSlotFilePath(slotIndex));
+            string path = EnsureAndGetSlotFilePath(slotIndex);
+
+            await using StreamWriter file = new(path);
             await file.WriteAsync(data);
         }
 
         public async Task<string> LoadAsync(int slotIndex)
         {
-            using StreamReader file = new(GetSlotFilePath(slotIndex));
+            string path = EnsureAndGetSlotFilePath(slotIndex);
+            
+            using StreamReader file = new(path);
             return await file.ReadToEndAsync();
         }
         
-        private string GetSlotFilePath(int slotIndex)
+        private string EnsureAndGetSlotFilePath(int slotIndex)
         {
-            return Path.Combine(_mainSaveDirectory, _saveSubDirectory, $"{_saveFileName}_Slot{slotIndex:00}.{_saveFileExtension}");
+            string saveDirectoryPath = GetSaveDirectoryPath();
+            
+            if (!Directory.Exists(saveDirectoryPath))
+            {
+                Directory.CreateDirectory(saveDirectoryPath);
+            }
+
+            string path = Path.Combine(saveDirectoryPath, $"{_saveFileName}_Slot{slotIndex:00}.{_saveFileExtension}");
+
+            if (!File.Exists(path))
+            {
+                File.Create(path);
+            }
+            
+            return path;
+        }
+
+        private string GetSaveDirectoryPath()
+        {
+            return Path.Combine(_mainSaveDirectory, _saveSubDirectory);
         }
         
         private static string TrimPathSeparators(string path)
