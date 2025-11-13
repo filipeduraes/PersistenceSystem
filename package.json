@@ -15,8 +15,5 @@
     "name": "Idea.ToGame",
     "email": "fhdduraes@gmail.com",
     "url": "https://github.com/ideatogame"
-  },
-  "dependencies": {
-    "com.unity.nuget.newtonsoft-json": ""
   }
 }
