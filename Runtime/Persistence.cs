@@ -66,6 +66,14 @@ namespace IdeaToGame.PersistenceSystem
         }
         
         /// <summary>
+        /// Clears all data currently stored in memory.
+        /// </summary>
+        public static void ClearAllData()
+        {
+            loadedSlotData.Clear();
+        }
+        
+        /// <summary>
         /// Retrieves a data entry from the currently loaded slot data.
         /// </summary>
         /// <typeparam name="T">The expected type of the data.</typeparam>
