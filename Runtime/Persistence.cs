@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 using IdeaToGame.PersistenceSystem.Strategies;
 using Newtonsoft.Json;
 
@@ -84,7 +85,14 @@ namespace IdeaToGame.PersistenceSystem
         {
             if (loadedSlotData.TryGetValue(key, out object data))
             {
-                return (T) data;
+                Type targetType = typeof(T);
+                
+                if (targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                {
+                    targetType = Nullable.GetUnderlyingType(targetType);
+                }
+
+                return (T) Convert.ChangeType(data, targetType);
             }
 
             return defaultData;
